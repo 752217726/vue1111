@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <span>这是页面的开头</span>
+    <!--定义用户发起访问不同组件的链接  通过to="/路由名称" 来指定当前要访问的页面组件-->
+    <router-link to="/index">访问首页</router-link>
+    <router-link to="/user">访问员工页</router-link>
+    <hr>
+    <!--指定路由页面出现的位置-->
+    <router-view></router-view>
+</div>
+
+<!--在vue路由是单路的模块，因此需要额外的引入vue路由的依赖
+    引入vue路由的依赖，必须先引入vue
+-->
+<script src="js/vue.2.5.22.js"></script>
+<script src="js/vue-router.3.0.1.js"></script>
+<script>
+    let first = {
+        template:`
+            <div>农家小院后台管理系统</div>
+        `
+    };
+
+    let second = {
+        template:`
+            <div>员工列表页</div>
+        `
+    };
+
+    // 为每个组件准备对应的路由 定义路由的映射关系
+    // 页面中输入路由显示对应的组件
+    // 需要将定义好的路由注入到当前vue的实例中
+
+
+    let myRouter = new VueRouter({
+        routes:[
+            // path指的是访问组件的地址 component代表这个地址对应的组件  一一对应
+            {path: "/index", component: first},
+            {path: "/user", component: second},
+        ]
+    });
+
+    new Vue({
+        el: "#app",
+        data:{},
+        // 将定义好的路由注入到vue的实例中
+        // 通过router配置参数注入  从而整个应用都有路由功能
+        router: myRouter,
+    })
+</script>
+</body>
+</html>

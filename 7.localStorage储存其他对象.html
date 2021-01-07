@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    let local = localStorage;
+    // 数字 字符串
+    // localStorage.age = 23 ;  //数字
+    // localStorage.name = "小黑"; // 字符串
+    // console.log(typeof localStorage.age, localStorage.age,  typeof localStorage.name)
+
+    // localStorage会将所有的数据作为字符串去储存
+    // local.student = {
+    //     username:"小黑",
+    //     age: 70,
+    // };
+    //
+    // console.log(local.student.age);
+
+    // 储存其他类型的数据 需要将数据进行序列化
+    let stu = {
+        username: "小黑",
+        age:70
+    };
+    local.student = JSON.stringify(stu);
+
+    // 取出使用 反序列化对象
+    let student = JSON.parse(local.student);
+    console.log(student.username, student.age);
+</script>
+</body>
+</html>

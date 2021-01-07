@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <router-link to="/index">首页</router-link>
+    <router-link to="/user">用户</router-link>
+    <router-link to="/login">登录</router-link>
+    <hr>
+    <router-view></router-view>
+</div>
+
+<!--在vue路由是单路的模块，因此需要额外的引入vue路由的依赖
+    引入vue路由的依赖，必须先引入vue
+-->
+<script src="js/vue.2.5.22.js"></script>
+<script src="js/vue-router.3.0.1.js"></script>
+<script>
+    let index = {
+        template:`
+            <div>这是index页面
+                <h3>欢迎访问信息管理系统</h3>
+            </div>
+        `
+    };
+
+    let user = {
+        template:`
+            <div>
+                <h3>用户列表页</h3>
+                <table border="2">
+                    <tr>
+                        <td>姓名</td>
+                        <td>生日</td>
+                    </tr>
+                    <tr v-for="user in users">
+                        <td>{{user.username}}</td>
+                        <td>{{user.bir}}</td>
+                    </tr>
+                </table>
+            </div>
+        `,
+        data:function () {
+            return {
+                users: [
+                    {username: "农家小院", bir: "2007-12-01"},
+                    {username: "小赵", bir: "2007-12-01"},
+                    {username: "小黑", bir: "2007-12-01"}
+                ]
+            }
+        }
+    };
+
+    // 为每个组件准备对应的路由 定义路由的映射关系
+    // 页面中输入路由显示对应的组件
+    // 需要将定义好的路由注入到当前vue的实例中
+
+
+    let myRouter = new VueRouter({
+        routes:[
+            // path指的是访问组件的地址 component代表这个地址对应的组件  一一对应
+            {path:"/index", component:index},
+            {path:"/user", component: user},
+            // 当路由匹配到 /  将重定向到首页
+            {path:"/", redirect:'/index'},
+            // 当没有匹配到任何路由时， 重定向到首页 一定要放到路由的末尾
+            {path: "/*", redirect: "/index"},
+        ]
+    });
+
+    new Vue({
+        el: "#app",
+        data:{},
+        // 将定义好的路由注入到vue的实例中
+        // 通过router配置参数注入  从而整个应用都有路由功能
+        router: myRouter,
+    })
+</script>
+</body>
+</html>
